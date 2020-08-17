@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Predictive Modeling of Air Quality Index of LA</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table, tr, td {
+text-align: left; 
+width: 57%; 
+margin-left: auto;
+margin-right:auto;
+}
+</style>
+
+<style>
+body {
+font-family: Palatino;
+text-align: center;
+}
+
+form {
+border: 2px solid #f1f1f1;   
+width: 100%;  
+align-items: center;
+text-align: center
+}
+
+input[type=number] {
+width: 100%;
+padding: 5px 5px;
+margin: 4px 4px;
+display: inline-block;
+border: 1px solid #ccc;
+box-sizing: border-box;
+}
+
+
+button {
+background-color: #339BD8;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
+}
+
+button:hover {
+opacity: 0.8;
+}
+.imgcontainer {
+text-align: center;
+position: relative;
+height: 300px;
+background-image: url("https://live.staticflickr.com/281/31717425120_6709d0c53b_b.jpg");  
+background-size: cover;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+.container {
+padding: 50px;
+}
+
+</style>
+</head>
+<body>
+
+<form action="{{ url_for('predict')}}"method="post">
+
+  <div class="imgcontainer">
+    <h1><p style="font-family:Palatino"><font size="6.5" color=#fff>Air Quality Index of Los Angeles, CA</font></p></h1>
+  </div>
+  
+  <div class="container">
+  {{prediction_text}}
+  
+  <h2 style="font-family:Palatino"><font size="5">About the App</h2>
+
+  <p style="text-align:justified"><font size="4"> This application has been built based on machine learning algorithm. All the input features have to be inserted in correct units (mentioned within parentheses beside each predictor) to get a result. The main pollutant of the Los Angeles air is PM 2.5 and the objective of this app is to predict the concentration of PM 2.5 in micro-gram/cubic-meter. The accuracy of the model is 82.62%.</p>
+
+<table>
+
+  <tr><td >
+  <label for="avg_temp"><b style="font-family:Arial"><font size="4.5">Average Temperature (°C)</b></label></td>
+  <td><input type="number" placeholder="Average Temperature" name="avg_temp" required></td></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="max_temp"><b style="font-family:Arial">Maximum Temperature (°C)</b></label>
+  <td><input type="number" placeholder="Maximum Temperature" name="max_temp" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="min_temp"><b style="font-family:Arial">Minimum Temperature (°C)</b></label>
+  <td><input type="number" placeholder="Minimum Temperature" name="max_temp" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="SLP"><b style="font-family:Arial">Atmospheric Sea Level Pressure (hPa)</b></label>
+  <td><input type="number" placeholder="Sea Level Pressure" name="SLP" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="RH"><b style="font-family:Arial">Average Relative Humidity (%)</b></label>
+  <td><input type="number" placeholder="Average Relative Humidity" name="RH" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="RS"><b style="font-family:Arial">Total Rainfall and/or Snowmelt (mm)</b></label>
+  <td><input type="number" placeholder="Rainfall/Snowmelt" name="RS" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="V"><b style="font-family:Arial">Average Visibility (km)</b></label>
+  <td><input type="number" placeholder="Average Visibility" name="V" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="WS"><b style="font-family:Arial">Average Wind Speed (km/h)</b></label>
+  <td><input type="number" placeholder="Average Wind Speed" name="WS" required></td>
+  </td></tr>
+
+  <tr><td >
+  <label for="SWS"><b style="font-family:Arial">Maximum Sustained Wind Speed (km/h)</b></label>
+  <td><input type="number" placeholder="Maximum Sustained Speed" name="SWS" required></td>
+  </td></tr>
+
+</table>
+ 
+<br>      
+    <button type="submit"><style="font-family:Palatino"><font size="4.5">Predict</button>
+  </div>
+  
+
+</form>
+
+</body>
+</html>
