@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pickle
+import joblib
 
 st.title("Air Quality Index of Los Angeles, CA")
 
@@ -49,23 +49,16 @@ feat = [float(x) for x in feat]
 final_features = [np.array(feat)]
 
 
-# ------------------------------------- ML --------------------------------------
+# ------------------------------------- joblib --------------------------------------
 
-df = pd.read_csv('preprocessed_data_LA.csv', usecols = ['T', 'TM', 'Tm', 'SLP', 'H', 'PP', 'VV', 'V', 'VM','PM2.5'])
-df.columns = ['avg_temp', 'max_temp', 'min_temp', 'sealevel_pressure', 'avg_humidity', 'rainfall_snowmelt', 'visibility', 'avg_windspeed', 'max_windspeed', 'PM2.5']
-X = df.drop('PM2.5', axis = 1)
-y = df['PM2.5']
+joblib_lgbmR_model = joblib.load('joblib_best_random.pkl')
 
-from lightgbm.sklearn import LGBMRegressor
-best_random = LGBMRegressor(random_state = 42, reg_alpha = 0.001, n_estimators = 50, min_child_weight = 1e-05, min_child_samples = 20, boosting_type = 'gbdt')
-best_random.fit(X, y)
-
-# --------------------------------- ML block ends --------------------------------
+# --------------------------------- joblib block ends --------------------------------
 
 st.subheader('   ')
 
 if st.button('Predict'):
-    prediction = best_random.predict(final_features)
+    prediction = joblib_lgbmR_model.predict(final_features) 
     st.success(f'Concentration of PM 2.5 is : {round(prediction[0], 4)} micro-gram/cubic-meter')
 
 
